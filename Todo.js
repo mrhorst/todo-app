@@ -7,6 +7,7 @@ class Todo {
     dueDate = '',
     priority = ''
   ) {
+    this.id = Date.now()
     this.title = title
     this.description = description
     this.dueDate = dueDate
