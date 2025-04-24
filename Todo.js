@@ -1,10 +1,22 @@
 class Todo {
-  constructor(title = '', description = '', dueDate = '', priority = '') {
+  #isSubtask
+  constructor(
+    title = '',
+    isSubtask = false,
+    description = '',
+    dueDate = '',
+    priority = ''
+  ) {
     this.title = title
     this.description = description
     this.dueDate = dueDate
     this.priority = priority
     this.completed = false
+    this.#isSubtask = isSubtask
+
+    if (this.#isSubtask == false) {
+      this.subtask = []
+    }
   }
 
   changeTitle(title) {
@@ -25,6 +37,16 @@ class Todo {
 
   toggleCompleteTask() {
     this.completed = !this.completed
+  }
+
+  addSubtask() {
+    if (!this.#isSubtask) {
+      const subtask = new Todo('', true)
+      this.subtask.push(subtask)
+      return subtask
+    } else {
+      console.error('Subtasks cannot have subtasks.')
+    }
   }
 }
 
