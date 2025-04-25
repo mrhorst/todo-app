@@ -6,7 +6,7 @@
 const container = document.createElement('div')
 const projContainer = document.createElement('div')
 const todoContainer = document.createElement('div')
-container.classList = 'grid grid-cols-2'
+container.classList = 'grid grid-cols-2 items-start'
 projContainer.classList = 'grid-span-1 blue'
 todoContainer.classList = 'grid-span-1 red'
 container.appendChild(projContainer)

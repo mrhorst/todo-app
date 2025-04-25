@@ -1,12 +1,17 @@
 import Todo from './Todo.js'
+import createTodoCard from './todoUI.js'
 
 const addTodoBtn = document.querySelector('#todo-btn')
 
 const getTodoData = () => {
   const todoTitle = document.querySelector('#todoTitle').value
+  if (!todoTitle.trim()) {
+    alert("Title can't be empty.")
+    return null
+  }
   const todoDesc = document.querySelector('#todoDesc').value
   const todoDueDate = document.querySelector('#todoDueDate').value
-  const todoPriority = document.querySelector('#todoDueDate').value
+  const todoPriority = document.querySelector('#todoPriority').value
   const todoCompleted = document.querySelector('#todoCompleted').value
   return { todoTitle, todoDesc, todoDueDate, todoPriority, todoCompleted }
 }
@@ -15,7 +20,7 @@ const clearTodoInputs = () => {
   const todoTitle = document.querySelector('#todoTitle')
   const todoDesc = document.querySelector('#todoDesc')
   const todoDueDate = document.querySelector('#todoDueDate')
-  const todoPriority = document.querySelector('#todoDueDate')
+  const todoPriority = document.querySelector('#todoPriority')
   const todoCompleted = document.querySelector('#todoCompleted')
   const ar = [todoTitle, todoDesc, todoDueDate, todoPriority, todoCompleted]
   ar.forEach((input) => {
@@ -24,16 +29,35 @@ const clearTodoInputs = () => {
 }
 
 const addList = ({ id, title, description, dueDate, priority, completed }) => {
+  const {
+    todoCard,
+    cardTitle,
+    cardDesc,
+    cardDueDate,
+    cardPriority,
+    cardCompleted,
+  } = createTodoCard()
   const li = document.createElement('li')
   li.id = id
-  li.textContent = `Todo Title:${title}\nDescription: ${description}\nDue date: ${dueDate}\nPriority: ${priority}\nCompleted: ${completed}`
+
+  li.appendChild(todoCard)
+  cardTitle.textContent = title
+  cardDesc.textContent = description
+  cardDueDate.textContent = dueDate
+  cardPriority.textContent = priority
+  cardCompleted.textContent = completed
+
   return li
 }
 
 const loadTodos = (todos) => {
   const todoContainer = document.querySelector('#todos-container')
+
   if (todos) {
-    const ul = document.createElement('ul')
+    const ul = document.querySelector('#todoUl')
+      ? document.querySelector('#todoUl')
+      : document.createElement('ul')
+
     ul.id = 'todoUl'
     todos.forEach((todo) => {
       ul.appendChild(addList(todo))
@@ -69,10 +93,13 @@ const clearTodoContainer = () => {
 
 addTodoBtn.addEventListener('click', (e) => {
   e.preventDefault()
+  const todoData = getTodoData()
+  if (!todoData) return
   const { todoTitle, todoDesc, todoDueDate, todoPriority, todoCompleted } =
-    getTodoData()
+    todoData
   const todo = new Todo(
     todoTitle,
+    false,
     todoDesc,
     todoDueDate,
     todoPriority,
