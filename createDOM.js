@@ -18,13 +18,17 @@ const todoTitleContainer = document.createElement('div')
 const projBodyContainer = document.createElement('div')
 const todoBodyContainer = document.createElement('div')
 
-projContainer.classList = 'flex flex-col justify-between items-center border-1'
-todoContainer.classList = 'flex flex-col justify-between items-center border-1'
+projContainer.classList =
+  'flex flex-col justify-between items-center h-auto m-2 p-4'
+todoContainer.classList =
+  'flex flex-col justify-between items-center h-auto mr-10 p-4'
 
 const projTitle = document.createElement('h2')
 const todoTitle = document.createElement('h2')
 projTitle.textContent = 'Projects'
 todoTitle.textContent = 'Tasks'
+projTitle.classList = 'text-lg font-bold mb-2'
+todoTitle.classList = 'text-lg font-bold mb-4'
 projTitleContainer.appendChild(projTitle)
 todoTitleContainer.appendChild(todoTitle)
 
@@ -33,9 +37,9 @@ todoTitleContainer.appendChild(todoTitle)
 // 1 for the list of created items.
 
 const projInputContainer = document.createElement('div')
-projInputContainer.classList = 'flex flex-col border-1'
+projInputContainer.classList = 'grid grid-cols-2 w-full gap-4'
 const todoInputContainer = document.createElement('div')
-todoInputContainer.classList = 'flex flex-col border-1'
+todoInputContainer.classList = 'grid grid-cols-2 w-full gap-4'
 const projListContainer = document.createElement('div')
 const todoListContainer = document.createElement('div')
 
@@ -52,15 +56,24 @@ const projDueDateInputLabel = document.createElement('label')
 const projTitleInput = document.createElement('input')
 const projDescInput = document.createElement('input')
 const projDueDateInput = document.createElement('input')
+const projAddButton = document.createElement('button')
 projInputContainer.appendChild(projTitleInputLabel)
 projInputContainer.appendChild(projTitleInput)
 projInputContainer.appendChild(projDescInputLabel)
 projInputContainer.appendChild(projDescInput)
 projInputContainer.appendChild(projDueDateInputLabel)
 projInputContainer.appendChild(projDueDateInput)
+projInputContainer.appendChild(projAddButton)
 projTitleInputLabel.textContent = 'Title'
 projDescInputLabel.textContent = 'Description'
 projDueDateInputLabel.textContent = 'Due Date'
+projAddButton.textContent = 'Add Project'
+
+projTitleInputLabel.classList = 'justify-self-center'
+projDescInputLabel.classList = 'justify-self-center'
+projDueDateInputLabel.classList = 'justify-self-center'
+projAddButton.classList =
+  'border-gray-300 rounded-md bg-blue-500 text-white justify-self-center col-span-2 w-1/3 p-1 text-sm'
 
 const todoTitleInputLabel = document.createElement('label')
 const todoTitleInput = document.createElement('input')
@@ -72,6 +85,7 @@ const todoPriorityInputLabel = document.createElement('label')
 const todoPriorityInput = document.createElement('input')
 const todoCompletedInputLabel = document.createElement('label')
 const todoCompletedInput = document.createElement('input')
+const todoAddButton = document.createElement('button')
 todoInputContainer.appendChild(todoTitleInputLabel)
 todoInputContainer.appendChild(todoTitleInput)
 todoInputContainer.appendChild(todoDescInputLabel)
@@ -82,15 +96,23 @@ todoInputContainer.appendChild(todoPriorityInputLabel)
 todoInputContainer.appendChild(todoPriorityInput)
 todoInputContainer.appendChild(todoCompletedInputLabel)
 todoInputContainer.appendChild(todoCompletedInput)
+todoInputContainer.appendChild(todoAddButton)
+
 todoTitleInputLabel.textContent = 'Title'
 todoDescInputLabel.textContent = 'Description'
 todoDueDateInputLabel.textContent = 'Due Date'
 todoPriorityInputLabel.textContent = 'Priority'
 todoCompletedInputLabel.textContent = 'Completed'
+todoAddButton.textContent = 'Add Todo'
 todoCompletedInput.type = 'checkbox'
+todoCompletedInput.classList = todoAddButton.classList =
+  'border-gray-300 rounded-md bg-blue-500 text-white justify-self-center col-span-2 w-1/3 p-1 text-sm'
+
+todoInputContainer.id = 'todo-container'
 
 // inside the bodycontainers, a ul of li (for each project/todo)
 const projUl = document.createElement('ul')
+
 const todoUl = document.createElement('ul')
 const dynamicLi = (item) => {
   const li = document.createElement('li')
@@ -101,3 +123,17 @@ projInputContainer.appendChild(projUl)
 todoInputContainer.appendChild(todoUl)
 
 document.body.appendChild(container)
+
+const allInputs = document.querySelectorAll('input')
+allInputs.forEach((input) => {
+  if (input.type !== 'checkbox') {
+    input.classList = 'rounded-md text-sm shadow-sm bg-gray-50'
+  }
+})
+
+todoCompletedInput.classList = 'text-sm'
+
+const todoContainerLabels = document.querySelectorAll('#todo-container label')
+todoContainerLabels.forEach((label) => {
+  label.classList = 'justify-self-center'
+})
