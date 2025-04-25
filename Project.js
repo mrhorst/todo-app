@@ -2,6 +2,7 @@ import Todo from './Todo.js'
 
 class Project {
   constructor(title = '', description = '', dueDate = '') {
+    this.id = Date.now()
     this.title = title
     this.description = description
     this.dueDate = dueDate

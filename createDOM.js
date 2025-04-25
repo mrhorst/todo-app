@@ -37,9 +37,9 @@ todoTitleContainer.appendChild(todoTitle)
 // 1 for the list of created items.
 
 const projInputContainer = document.createElement('div')
-projInputContainer.classList = 'grid grid-cols-2 w-full gap-4'
+
 const todoInputContainer = document.createElement('div')
-todoInputContainer.classList = 'grid grid-cols-2 w-full gap-4'
+
 const projListContainer = document.createElement('div')
 const todoListContainer = document.createElement('div')
 
@@ -50,20 +50,29 @@ todoContainer.appendChild(todoTitleContainer)
 todoContainer.appendChild(todoInputContainer)
 todoContainer.appendChild(todoListContainer)
 
+const projForm = document.createElement('form')
 const projTitleInputLabel = document.createElement('label')
 const projDescInputLabel = document.createElement('label')
 const projDueDateInputLabel = document.createElement('label')
 const projTitleInput = document.createElement('input')
+projTitleInput.id = 'projTitle'
 const projDescInput = document.createElement('input')
+projDescInput.id = 'projDesc'
 const projDueDateInput = document.createElement('input')
+projDueDateInput.id = 'projDueDate'
 const projAddButton = document.createElement('button')
-projInputContainer.appendChild(projTitleInputLabel)
-projInputContainer.appendChild(projTitleInput)
-projInputContainer.appendChild(projDescInputLabel)
-projInputContainer.appendChild(projDescInput)
-projInputContainer.appendChild(projDueDateInputLabel)
-projInputContainer.appendChild(projDueDateInput)
-projInputContainer.appendChild(projAddButton)
+projAddButton.id = 'proj-btn'
+
+projForm.classList = 'grid grid-cols-2 w-full gap-4'
+
+projInputContainer.appendChild(projForm)
+projForm.appendChild(projTitleInputLabel)
+projForm.appendChild(projTitleInput)
+projForm.appendChild(projDescInputLabel)
+projForm.appendChild(projDescInput)
+projForm.appendChild(projDueDateInputLabel)
+projForm.appendChild(projDueDateInput)
+projForm.appendChild(projAddButton)
 projTitleInputLabel.textContent = 'Title'
 projDescInputLabel.textContent = 'Description'
 projDueDateInputLabel.textContent = 'Due Date'
@@ -75,28 +84,38 @@ projDueDateInputLabel.classList = 'justify-self-center'
 projAddButton.classList =
   'border-gray-300 rounded-md bg-blue-500 text-white justify-self-center col-span-2 w-1/3 p-1 text-sm'
 
+const todoForm = document.createElement('form')
 const todoTitleInputLabel = document.createElement('label')
 const todoTitleInput = document.createElement('input')
+todoTitleInput.id = 'todoTitle'
 const todoDescInputLabel = document.createElement('label')
 const todoDescInput = document.createElement('input')
+todoDescInput.id = 'todoDesc'
 const todoDueDateInputLabel = document.createElement('label')
 const todoDueDateInput = document.createElement('input')
+todoDueDateInput.id = 'todoDueDate'
 const todoPriorityInputLabel = document.createElement('label')
 const todoPriorityInput = document.createElement('input')
+todoPriorityInput.id = 'todoPriority'
 const todoCompletedInputLabel = document.createElement('label')
 const todoCompletedInput = document.createElement('input')
+todoCompletedInput.id = 'todoCompleted'
 const todoAddButton = document.createElement('button')
-todoInputContainer.appendChild(todoTitleInputLabel)
-todoInputContainer.appendChild(todoTitleInput)
-todoInputContainer.appendChild(todoDescInputLabel)
-todoInputContainer.appendChild(todoDescInput)
-todoInputContainer.appendChild(todoDueDateInputLabel)
-todoInputContainer.appendChild(todoDueDateInput)
-todoInputContainer.appendChild(todoPriorityInputLabel)
-todoInputContainer.appendChild(todoPriorityInput)
-todoInputContainer.appendChild(todoCompletedInputLabel)
-todoInputContainer.appendChild(todoCompletedInput)
-todoInputContainer.appendChild(todoAddButton)
+todoAddButton.id = 'todo-btn'
+todoInputContainer.appendChild(todoForm)
+todoForm.appendChild(todoTitleInputLabel)
+todoForm.appendChild(todoTitleInput)
+todoForm.appendChild(todoDescInputLabel)
+todoForm.appendChild(todoDescInput)
+todoForm.appendChild(todoDueDateInputLabel)
+todoForm.appendChild(todoDueDateInput)
+todoForm.appendChild(todoPriorityInputLabel)
+todoForm.appendChild(todoPriorityInput)
+todoForm.appendChild(todoCompletedInputLabel)
+todoForm.appendChild(todoCompletedInput)
+todoForm.appendChild(todoAddButton)
+
+todoForm.classList = 'grid grid-cols-2 w-full gap-4'
 
 todoTitleInputLabel.textContent = 'Title'
 todoDescInputLabel.textContent = 'Description'
@@ -112,12 +131,10 @@ todoInputContainer.id = 'todo-container'
 
 // inside the bodycontainers, a ul of li (for each project/todo)
 const projUl = document.createElement('ul')
+projUl.id = 'projUl'
 
 const todoUl = document.createElement('ul')
-const dynamicLi = (item) => {
-  const li = document.createElement('li')
-  li.id = item.id
-}
+todoUl.id = 'todoUl'
 
 projInputContainer.appendChild(projUl)
 todoInputContainer.appendChild(todoUl)
