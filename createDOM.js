@@ -130,13 +130,10 @@ todoCompletedInput.classList = todoAddButton.classList =
 todoInputContainer.id = 'todo-container'
 
 // inside the bodycontainers, a ul of li (for each project/todo)
-const projUl = document.createElement('ul')
-projUl.id = 'projUl'
 
 const todoUl = document.createElement('ul')
 todoUl.id = 'todoUl'
 
-projInputContainer.appendChild(projUl)
 todoInputContainer.appendChild(todoUl)
 
 document.body.appendChild(container)
@@ -154,3 +151,15 @@ const todoContainerLabels = document.querySelectorAll('#todo-container label')
 todoContainerLabels.forEach((label) => {
   label.classList = 'justify-self-center'
 })
+
+// const projUl = document.createElement('ul')
+// projUl.id = 'projUl'
+
+projListContainer.id = 'projects-container'
+projListContainer.classList = 'mt-5'
+todoListContainer.id = 'todos-container'
+todoListContainer.classList = 'mt-5'
+
+// projListContainer.appendChild(projUl)
+projContainer.appendChild(projListContainer)
+todoContainer.appendChild(todoListContainer)

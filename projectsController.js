@@ -1,14 +1,22 @@
-import Todo from './Todo.js'
 import Project from './Project.js'
 
 const addProjectBtn = document.querySelector('#proj-btn')
-const addTodoBtn = document.querySelector('#todo-btn')
 
 const getProjectData = () => {
   const projTitle = document.querySelector('#projTitle').value
   const projDesc = document.querySelector('#projDesc').value
   const projDueDate = document.querySelector('#projDueDate').value
   return { projTitle, projDesc, projDueDate }
+}
+
+const clearProjectInputs = () => {
+  const projTitle = document.querySelector('#projTitle')
+  const projDesc = document.querySelector('#projDesc')
+  const projDueDate = document.querySelector('#projDueDate')
+  const ar = [projTitle, projDesc, projDueDate]
+  ar.forEach((input) => {
+    input.value = ''
+  })
 }
 
 const addList = ({ id, title, description, dueDate }) => {
@@ -19,10 +27,20 @@ const addList = ({ id, title, description, dueDate }) => {
 }
 
 const loadProjects = (projects) => {
-  const ul = document.querySelector('#projUl')
-  projects.forEach((project) => {
-    ul.appendChild(addList(project))
-  })
+  const projContainer = document.querySelector('#projects-container')
+  if (projects) {
+    const ul = document.createElement('ul')
+    ul.id = 'projUl'
+    projects.forEach((project) => {
+      ul.appendChild(addList(project))
+    })
+    projContainer.appendChild(ul)
+  } else {
+    const p = document.createElement('p')
+    p.textContent = 'No Projects yet!'
+    p.classList = 'text-lg font-bold m-5'
+    projContainer.appendChild(p)
+  }
 }
 
 const addProjToLocalstorage = (project) => {
@@ -34,11 +52,15 @@ const addProjToLocalstorage = (project) => {
   window.localStorage.setItem('Projects', JSON.stringify(listOfProjects))
 }
 
-const clearLi = () => {
+const clearProjContainer = () => {
   const allLi = document.querySelectorAll('#projUl li')
   allLi.forEach((li) => {
     li.remove()
   })
+  const emptyProject = document.querySelector('#projects-container p')
+  if (emptyProject) {
+    emptyProject.remove()
+  }
 }
 
 addProjectBtn.addEventListener('click', (e) => {
@@ -47,8 +69,9 @@ addProjectBtn.addEventListener('click', (e) => {
   const project = new Project(projTitle, projDesc, projDueDate)
 
   addProjToLocalstorage(project)
-  clearLi()
+  clearProjContainer()
   loadProjects(getStoredProjectsArray())
+  clearProjectInputs()
 })
 
 const getStoredProjectsArray = () => {
@@ -56,5 +79,3 @@ const getStoredProjectsArray = () => {
 }
 
 loadProjects(getStoredProjectsArray())
-
-export { Todo, Project }
