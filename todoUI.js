@@ -1,5 +1,6 @@
 const createTodoCard = () => {
   const todoCard = document.createElement('div')
+  const projectName = document.createElement('p')
   const cardTitle = document.createElement('p')
   const cardDesc = document.createElement('p')
   const cardDueDate = document.createElement('p')
@@ -9,6 +10,7 @@ const createTodoCard = () => {
   todoCard.classList =
     'flex flex-col justify-between rounded-lg border border-gray-300 shadow-md p-4 w-60 bg-white hover:shadow-lg transition'
   const todoAttr = [
+    projectName,
     cardTitle,
     cardDesc,
     cardDueDate,
@@ -22,6 +24,7 @@ const createTodoCard = () => {
 
   return {
     todoCard,
+    projectName,
     cardTitle,
     cardDesc,
     cardDueDate,

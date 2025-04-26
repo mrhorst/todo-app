@@ -100,6 +100,9 @@ todoPriorityInput.id = 'todoPriority'
 const todoCompletedInputLabel = document.createElement('label')
 const todoCompletedInput = document.createElement('input')
 todoCompletedInput.id = 'todoCompleted'
+const todoProjectSelectorLabel = document.createElement('label')
+const todoProjectSelector = document.createElement('select')
+todoProjectSelector.id = 'projectSelector'
 const todoAddButton = document.createElement('button')
 todoAddButton.id = 'todo-btn'
 todoInputContainer.appendChild(todoForm)
@@ -113,6 +116,8 @@ todoForm.appendChild(todoPriorityInputLabel)
 todoForm.appendChild(todoPriorityInput)
 todoForm.appendChild(todoCompletedInputLabel)
 todoForm.appendChild(todoCompletedInput)
+todoForm.appendChild(todoProjectSelectorLabel)
+todoForm.appendChild(todoProjectSelector)
 todoForm.appendChild(todoAddButton)
 
 todoForm.classList = 'grid grid-cols-2 w-full gap-4'
@@ -122,6 +127,7 @@ todoDescInputLabel.textContent = 'Description'
 todoDueDateInputLabel.textContent = 'Due Date'
 todoPriorityInputLabel.textContent = 'Priority'
 todoCompletedInputLabel.textContent = 'Completed'
+todoProjectSelectorLabel.textContent = 'Project'
 todoAddButton.textContent = 'Add Todo'
 todoCompletedInput.type = 'checkbox'
 todoCompletedInput.classList = todoAddButton.classList =
