@@ -18,7 +18,7 @@ document.body.classList.add(
 )
 
 export const buildLayout = () => {
-  const titleContainer = buildTitleSection(document.body)
+  const titleContainer = buildAppTitleSection(document.body)
   const appContainer = buildAppSection(document.body)
   const { sectionContainer, listedProjectsContainer, inputContainer } =
     buildProjectSection(appContainer)
@@ -44,7 +44,7 @@ const buildAppSection = (parent) => {
   return appContainer
 }
 
-const buildTitleSection = (parent) => {
+const buildAppTitleSection = (parent) => {
   const titleContainer = createElement('div', {
     id: 'app-title-container',
     parent: parent,
@@ -112,7 +112,7 @@ const buildTodoSection = (parent) => {
 }
 
 const buildInput = (parent) => {
-  createElement('input', {
+  return createElement('input', {
     id: 'project-input',
     parent,
     placeholder: 'Household, Work, etc...',
@@ -120,3 +120,16 @@ const buildInput = (parent) => {
       'rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
   })
 }
+
+export const createProjectCard = (project, listedProjectsContainer) => {
+  createElement('div', {
+    id: `card-${project.id}`,
+    parent: listedProjectsContainer,
+    classList:
+      'border border-gray-300 rounded-md px-4 py-2 text-left hover:bg-gray-50 transition-shadow duration-200',
+    textContent: project.title,
+  })
+}
+
+export const selectProjectCard = (projectId) => {}
+export const projectsArray = JSON.parse(window.localStorage.getItem('projects'))
