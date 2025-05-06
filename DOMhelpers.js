@@ -20,18 +20,12 @@ document.body.classList.add(
 export const buildLayout = () => {
   const titleContainer = buildAppTitleSection(document.body)
   const appContainer = buildAppSection(document.body)
-  const { sectionContainer, listedProjectsContainer, inputContainer } =
-    buildProjectSection(appContainer)
+  const projectSection = buildProjectSection(appContainer)
+
   const todoSection = buildTodoSection(appContainer)
-  const projectInput = buildInput(inputContainer)
   return {
     todoSection,
-    projectSection: {
-      sectionContainer,
-      listedProjectsContainer,
-      inputContainer,
-      projectInput,
-    },
+    projectSection,
   }
 }
 
@@ -81,10 +75,12 @@ const buildProjectSection = (parent) => {
   })
 
   const inputContainer = createElement('div', {
-    id: 'input-container',
+    id: 'project-input-container',
     classList: 'border-1 p-3',
     parent: sectionContainer,
   })
+
+  const projectInput = buildInput(inputContainer, 'project')
 
   const projectsContainer = createElement('div', {
     id: 'projects-container',
@@ -98,24 +94,44 @@ const buildProjectSection = (parent) => {
     parent: projectsContainer,
   })
 
-  return { sectionContainer, listedProjectsContainer, inputContainer }
+  return {
+    sectionContainer,
+    listedProjectsContainer,
+    inputContainer,
+    projectInput,
+  }
 }
 
 const buildTodoSection = (parent) => {
-  const todoSection = createElement('div', {
-    id: 'todo-section',
+  const sectionContainer = createElement('div', {
+    id: 'todos-section',
+    classList: 'flex flex-col col-span-1 border-1 h-full w-full bg-blue-100',
     parent,
-    classList:
-      'col-span-2 justify-between items-center px-8 py-2 border-1 w-full',
   })
-  return todoSection
+
+  const inputContainer = createElement('div', {
+    id: 'todos-input-container',
+    classList: 'border-1 p-3',
+    parent: sectionContainer,
+  })
+
+  const todoInput = buildInput(inputContainer, 'todo')
+
+  return { sectionContainer, inputContainer, todoInput }
 }
 
-const buildInput = (parent) => {
+const buildInput = (parent, type) => {
+  const placeholder = {
+    todo: 'Clean the stove...',
+    project: 'Household, Work, etc...',
+  }
   return createElement('input', {
-    id: `${parent.id}-input`,
+    id: `${parent.id}`.slice(
+      0,
+      parent.id.toString().length - '-container'.length
+    ),
     parent,
-    placeholder: 'Household, Work, etc...',
+    placeholder: placeholder[type], //pass todo or project as argument when calling buildInput..
     classList:
       'rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
   })
@@ -154,6 +170,19 @@ export const createTodoCard = (todo, todoSection) => {
     classList: 'text-lg',
     textContent: todo.title,
   })
+
+  const todoDescription = createElement('p', {
+    parent: card,
+    classList: 'text-sm',
+    textContent: todo.description,
+  })
+
+  const dueDate = createElement('p', {
+    parent: card,
+    classList: 'text-sm',
+    textContent: todo.dueDate,
+  })
+
   const deleteBtn = createElement('button', {
     parent: card,
     id: `${todo.id}`,
@@ -161,5 +190,3 @@ export const createTodoCard = (todo, todoSection) => {
     classList: 'todo-delete-button',
   })
 }
-
-export const selectProjectCard = (projectId) => {}
