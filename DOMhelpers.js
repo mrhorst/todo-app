@@ -48,7 +48,7 @@ const buildAppTitleSection = (parent) => {
   const titleContainer = createElement('div', {
     id: 'app-title-container',
     parent: parent,
-    classList: 'flex justify-center border-1',
+    classList: 'flex justify-center items-center border-1 h-16',
   })
   const appTitle = createElement('h2', {
     id: 'app-title',
@@ -94,7 +94,7 @@ const buildProjectSection = (parent) => {
 
   const listedProjectsContainer = createElement('div', {
     id: 'listed-projects-container',
-    classList: 'flex flex-col justify-evenly p-3 border-1 flex-1',
+    classList: 'flex flex-col justify-start gap-3 p-3 border-1 flex-1',
     parent: projectsContainer,
   })
 
@@ -113,7 +113,7 @@ const buildTodoSection = (parent) => {
 
 const buildInput = (parent) => {
   return createElement('input', {
-    id: 'project-input',
+    id: `${parent.id}-input`,
     parent,
     placeholder: 'Household, Work, etc...',
     classList:
@@ -122,14 +122,44 @@ const buildInput = (parent) => {
 }
 
 export const createProjectCard = (project, listedProjectsContainer) => {
-  createElement('div', {
-    id: `card-${project.id}`,
+  const card = createElement('div', {
+    id: `${project.id}`,
     parent: listedProjectsContainer,
     classList:
-      'border border-gray-300 rounded-md px-4 py-2 text-left hover:bg-gray-50 transition-shadow duration-200',
+      'flex justify-between items-center border border-gray-300 rounded-md px-4 py-2 text-left hover:bg-gray-50 transition-shadow duration-200',
+  })
+  const projectTitle = createElement('p', {
+    parent: card,
+    classList: 'text-lg',
     textContent: project.title,
+  })
+  const deleteBtn = createElement('button', {
+    parent: card,
+    id: `${project.id}`,
+    textContent: '🗑️',
+    classList: 'project-delete-button',
+  })
+}
+
+export const createTodoCard = (todo, todoSection) => {
+  const todoInput = buildInput(todoSection)
+  const card = createElement('div', {
+    id: `${todo.id}`,
+    parent: todoSection,
+    classList:
+      'flex justify-between items-center border border-gray-300 rounded-md px-4 py-2 text-left hover:bg-gray-50 transition-shadow duration-200',
+  })
+  const todoTitle = createElement('p', {
+    parent: card,
+    classList: 'text-lg',
+    textContent: todo.title,
+  })
+  const deleteBtn = createElement('button', {
+    parent: card,
+    id: `${todo.id}`,
+    textContent: '🗑️',
+    classList: 'todo-delete-button',
   })
 }
 
 export const selectProjectCard = (projectId) => {}
-export const projectsArray = JSON.parse(window.localStorage.getItem('projects'))

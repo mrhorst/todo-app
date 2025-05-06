@@ -1,4 +1,4 @@
-import { createProjectCard, projectsArray } from './DOMhelpers.js'
+import { createProjectCard } from './DOMhelpers.js'
 import Project from './Project.js'
 
 const localStorage = window.localStorage
@@ -17,6 +17,7 @@ export const getStoredProjectsArray = () => {
 }
 
 const saveProject = (project) => {
+  const projectsArray = getStoredProjectsArray()
   if (projectsArray) {
     projectsArray.push(project)
     localStorage.setItem('projects', JSON.stringify(projectsArray))
@@ -39,4 +40,7 @@ export const renderProjects = (projects, { listedProjectsContainer }) => {
 
 const updateProject = (project) => {}
 
-const deleteProject = (project) => {}
+export const deleteProject = (projectId) => {
+  const projects = getStoredProjectsArray().filter((p) => p.id !== projectId)
+  localStorage.setItem('projects', JSON.stringify(projects))
+}
