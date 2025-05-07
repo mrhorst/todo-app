@@ -1,3 +1,4 @@
+import { createTodoCard } from './DOMhelpers.js'
 import { getStoredProjectsArray } from './projectsController.js'
 import { getActiveProjectId } from './state.js'
 import Todo from './Todo.js'
@@ -32,4 +33,29 @@ const saveTodo = (todo) => {
   localStorage.setItem('projects', JSON.stringify(updatedProjects))
 }
 
-export { createTodo }
+const renderTodos = (activeProject, todoSection) => {
+  todoSection.activeProjectTodosContainer.innerHTML = ''
+  const listOfTodos = activeProject.todos
+
+  if (listOfTodos) {
+    listOfTodos.forEach((todo) => {
+      createTodoCard(todo, todoSection)
+    })
+  }
+}
+
+const deleteTodo = (todoId) => {
+  const project = getActiveProject()
+  const projects = getStoredProjectsArray()
+
+  const updatedProjects = projects.map((p) => {
+    if (p.id === project.id) {
+      p.todos = p.todos.filter((todo) => todo.id !== todoId)
+    }
+    return p
+  })
+
+  localStorage.setItem('projects', JSON.stringify(updatedProjects))
+}
+
+export { createTodo, renderTodos, deleteTodo }

@@ -33,7 +33,8 @@ const buildAppSection = (parent) => {
   const appContainer = createElement('div', {
     parent,
     id: 'app',
-    classList: 'grid grid-cols-3 h-full border-1 ',
+    classList:
+      'grid grid-cols-3 h-full rounded-md border border-gray-200 min-h-0',
   })
   return appContainer
 }
@@ -42,12 +43,13 @@ const buildAppTitleSection = (parent) => {
   const titleContainer = createElement('div', {
     id: 'app-title-container',
     parent: parent,
-    classList: 'flex justify-center items-center border-1 h-16',
+    classList:
+      'flex justify-center items-center rounded-md border border-gray-200 h-full',
   })
   const appTitle = createElement('h2', {
     id: 'app-title',
     parent: titleContainer,
-    classList: 'text-lg font-bold border-1',
+    classList: 'text-lg font-bold ',
     textContent: 'TODO APP',
   })
 
@@ -57,26 +59,28 @@ const buildAppTitleSection = (parent) => {
 const buildProjectSection = (parent) => {
   const sectionContainer = createElement('div', {
     id: 'project-section',
-    classList: 'flex flex-col col-span-1 border-1 h-full bg-red-100',
+    classList:
+      'flex flex-col col-span-1 rounded-md border border-rose-200 h-full bg-rose-100',
     parent,
   })
 
   const titleContainer = createElement('div', {
     id: 'project-title-container',
-    classList: 'flex justify-center items-center border-1 p-2 bg-red-200',
+    classList:
+      'flex justify-center items-center rounded-md border border-rose-200 p-2 bg-rose-100',
     parent: sectionContainer,
   })
 
   const title = createElement('h2', {
     id: 'project-title',
-    classList: 'text-md text-bold border-1 bg-red-300',
+    classList: 'text-lg font-bold rounded-md',
     parent: titleContainer,
     textContent: 'Projects',
   })
 
   const inputContainer = createElement('div', {
     id: 'project-input-container',
-    classList: 'border-1 p-3',
+    classList: 'rounded-md border border-rose-200 p-3 bg-rose-200',
     parent: sectionContainer,
   })
 
@@ -84,13 +88,15 @@ const buildProjectSection = (parent) => {
 
   const projectsContainer = createElement('div', {
     id: 'projects-container',
-    classList: 'flex flex-col p-3 border-1 bg-red-400 h-full flex-1',
+    classList:
+      'flex flex-col p-3 rounded-md border border-rose-200 bg-rose-400 h-full flex-1',
     parent: sectionContainer,
   })
 
   const listedProjectsContainer = createElement('div', {
     id: 'listed-projects-container',
-    classList: 'flex flex-col justify-start gap-3 p-3 border-1 flex-1',
+    classList:
+      'flex flex-col justify-start gap-3 p-3 rounded-md border border-rose-200 flex-1',
     parent: projectsContainer,
   })
 
@@ -105,19 +111,45 @@ const buildProjectSection = (parent) => {
 const buildTodoSection = (parent) => {
   const sectionContainer = createElement('div', {
     id: 'todos-section',
-    classList: 'flex flex-col col-span-1 border-1 h-full w-full bg-blue-100',
+    classList:
+      'flex flex-col col-span-2 rounded-md border border-sky-200 h-full w-full bg-sky-100',
     parent,
+  })
+
+  const titleContainer = createElement('div', {
+    id: 'todo-title-container',
+    classList:
+      'flex justify-center items-center rounded-md border border-sky-200 p-2 bg-sky-200',
+    parent: sectionContainer,
+  })
+
+  const title = createElement('h2', {
+    id: 'todo-title',
+    classList: 'text-lg font-bold rounded-md ',
+    parent: titleContainer,
+    textContent: 'To-dos',
   })
 
   const inputContainer = createElement('div', {
     id: 'todos-input-container',
-    classList: 'border-1 p-3',
+    classList: 'rounded-md border border-sky-200 p-3 bg-sky-300',
     parent: sectionContainer,
   })
 
   const todoInput = buildInput(inputContainer, 'todo')
 
-  return { sectionContainer, inputContainer, todoInput }
+  const activeProjectTodosContainer = createElement('div', {
+    id: 'active-project-todos-container',
+    parent: sectionContainer,
+    classList: 'flex gap-3 p-3 bg-sky-500 h-full',
+  })
+
+  return {
+    sectionContainer,
+    inputContainer,
+    todoInput,
+    activeProjectTodosContainer,
+  }
 }
 
 const buildInput = (parent, type) => {
@@ -133,7 +165,7 @@ const buildInput = (parent, type) => {
     parent,
     placeholder: placeholder[type], //pass todo or project as argument when calling buildInput..
     classList:
-      'rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
+      'rounded-md border border-sky-200 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
   })
 }
 
@@ -142,7 +174,7 @@ export const createProjectCard = (project, listedProjectsContainer) => {
     id: `${project.id}`,
     parent: listedProjectsContainer,
     classList:
-      'flex justify-between items-center border border-gray-300 rounded-md px-4 py-2 text-left hover:bg-gray-50 transition-shadow duration-200',
+      'flex justify-between items-center border border-sky-200 rounded-md px-4 py-2 text-left hover:bg-gray-50 transition-shadow duration-200',
   })
   const projectTitle = createElement('p', {
     parent: card,
@@ -158,12 +190,13 @@ export const createProjectCard = (project, listedProjectsContainer) => {
 }
 
 export const createTodoCard = (todo, todoSection) => {
-  const todoInput = buildInput(todoSection)
+  const activeProjectTodosContainer = todoSection.activeProjectTodosContainer
+
   const card = createElement('div', {
     id: `${todo.id}`,
-    parent: todoSection,
+    parent: activeProjectTodosContainer,
     classList:
-      'flex justify-between items-center border border-gray-300 rounded-md px-4 py-2 text-left hover:bg-gray-50 transition-shadow duration-200',
+      'flex justify-between h-50 w-50 items-center border border-sky-200 rounded-md px-4 py-2 text-left hover:bg-gray-50 transition-shadow duration-200',
   })
   const todoTitle = createElement('p', {
     parent: card,
