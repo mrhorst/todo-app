@@ -1,3 +1,5 @@
+import { getActiveProjectId } from './state.js'
+
 const createElement = (type, options = {}) => {
   const el = document.createElement(type)
   const { id, classList, parent, textContent, placeholder, inputType } = options
@@ -142,7 +144,7 @@ const buildTodoSection = (parent) => {
   const activeProjectTodosContainer = createElement('div', {
     id: 'active-project-todos-container',
     parent: sectionContainer,
-    classList: 'flex gap-3 p-3 bg-sky-500 h-full',
+    classList: 'grid grid-cols-3 grid-rows-4 gap-3 p-3 bg-sky-500 h-full',
   })
 
   return {
@@ -171,11 +173,16 @@ const buildInput = (parent, type) => {
 }
 
 export const createProjectCard = (project, listedProjectsContainer) => {
+  const activeClassList = 'bg-white ring-2 ring-blue-400'
+  const cardClassList =
+    'flex justify-between items-center border border-sky-200 rounded-md px-4 py-2 text-left hover:bg-gray-50 transition-shadow duration-200'
   const card = createElement('div', {
     id: `${project.id}`,
     parent: listedProjectsContainer,
     classList:
-      'flex justify-between items-center border border-sky-200 rounded-md px-4 py-2 text-left hover:bg-gray-50 transition-shadow duration-200',
+      project.id == getActiveProjectId()
+        ? `${cardClassList} ${activeClassList}`
+        : `${cardClassList}`,
   })
   const projectTitle = createElement('p', {
     parent: card,
@@ -196,29 +203,43 @@ export const createTodoCard = (todo, todoSection) => {
   const card = createElement('div', {
     id: `${todo.id}`,
     parent: activeProjectTodosContainer,
-    classList:
-      'flex justify-between h-50 w-50 items-center border border-sky-200 rounded-md px-4 py-2 text-left hover:bg-gray-50 transition-shadow duration-200',
+    classList: `
+  flex justify-between items-start 
+  w-full border border-sky-200 
+  rounded-md p-4 
+  bg-white shadow-sm hover:shadow-md transition 
+  text-left gap-4 h-40
+`,
+  })
+
+  const todoContainer = createElement('div', {
+    parent: card,
+    classList: 'flex flex-col gap-1',
   })
   const todoTitle = createElement('p', {
-    parent: card,
+    parent: todoContainer,
     classList: 'text-lg',
     textContent: todo.title,
   })
 
   const todoDescription = createElement('p', {
-    parent: card,
+    parent: todoContainer,
     classList: 'text-sm',
     textContent: todo.description,
   })
 
   const dueDate = createElement('p', {
-    parent: card,
+    parent: todoContainer,
     classList: 'text-sm',
     textContent: todo.dueDate,
   })
 
-  const deleteBtn = createElement('button', {
+  const deleteBtnContainer = createElement('div', {
     parent: card,
+    classList: 'text-right',
+  })
+  const deleteBtn = createElement('button', {
+    parent: deleteBtnContainer,
     id: `${todo.id}`,
     textContent: '🗑️',
     classList: 'todo-delete-button',

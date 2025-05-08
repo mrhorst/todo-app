@@ -74,6 +74,7 @@ const projectsListener = (projectSection, todoSection) => {
     if (listOfIDs.includes(e.target.id)) {
       // if clicked on a project's card, set it as the active project..
       setActiveProject(e.target.id)
+      renderProjects(projects, projectSection)
       renderTodos(getActiveProject(), todoSection)
     }
   })

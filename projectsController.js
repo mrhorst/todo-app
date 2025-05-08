@@ -1,5 +1,6 @@
 import { createProjectCard } from './DOMhelpers.js'
 import Project from './Project.js'
+import { getActiveProjectId } from './state.js'
 
 const localStorage = window.localStorage
 
