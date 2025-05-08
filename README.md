@@ -13,6 +13,7 @@ A clean and minimal Todo app for managing projects and tasks. Built with modular
 
 ## 🧩 Project Structure
 
+```
 /js/
 ├── app.js # Entry point, initializes app
 ├── ui.js # UI rendering and event wiring
@@ -23,6 +24,7 @@ A clean and minimal Todo app for managing projects and tasks. Built with modular
 ├── DOMhelpers.js # Element creation & rendering helpers
 ├── modal.js # Edit modal logic
 └── state.js # Active project state manager
+```
 
 ## 🚀 Getting Started
 
