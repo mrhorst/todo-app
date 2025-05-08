@@ -90,10 +90,9 @@ const todosInputListener = (todoSection) => {
 }
 
 const todosListener = (todoSection) => {
-  const todos = getAllTodos()
-
-  const listOfTodosId = todos.map((todo) => todo.id)
   todoSection.activeProjectTodosContainer.addEventListener('click', (e) => {
+    const todos = getAllTodos()
+    const listOfTodosId = todos.map((todo) => todo.id)
     if (e.target.className.includes('todo-delete-button')) {
       deleteTodo(e.target.id)
       renderTodos(getActiveProject(), todoSection)
@@ -137,7 +136,7 @@ const populateModal = (todo, modal, todoSection) => {
   modalCancelBtn.addEventListener('click', () => {
     modal.classList.add('hidden')
   })
-  modalSaveBtn.addEventListener('click', () => {
+  modalSaveBtn.onclick = () => {
     const newData = {
       title: modalTitle.value,
       description: modalDesc.value,
@@ -145,6 +144,7 @@ const populateModal = (todo, modal, todoSection) => {
     }
     updateTodo(todo, newData)
     modal.classList.add('hidden')
+
     renderTodos(getActiveProject(), todoSection)
-  })
+  }
 }
