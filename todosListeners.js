@@ -1,10 +1,15 @@
-import { getAllTodos, renderTodos, createTodo } from './todosController.js'
+import {
+  getAllTodos,
+  renderTodos,
+  createTodo,
+  deleteTodo,
+} from './todosController.js'
 import { openEditModal } from './modal.js'
 import {
   getStoredProjectsArray,
   getActiveProject,
 } from './projectsController.js'
-import { error } from './DOMhelpers.js'
+import { errorText } from './DOMhelpers.js'
 
 let timeout = null
 
@@ -12,7 +17,7 @@ const todosInputListener = (todoSection) => {
   todoSection.todoInput.addEventListener('keypress', (e) => {
     if (e.code === 'Enter' || e.code === 'NumpadEnter') {
       if (e.target.value.trim() === '') {
-        error(todoSection.inputContainer, 'Todo title')
+        errorText(todoSection.inputContainer, 'Todo title')
         timeout = setTimeout(() => {
           document.querySelector('.error')
             ? document.querySelector('.error').remove()
@@ -35,11 +40,12 @@ const todosListener = (todoSection) => {
   todoSection.activeProjectTodosContainer.addEventListener('click', (e) => {
     const todos = getAllTodos()
     const listOfTodosId = todos.map((todo) => todo.id)
+    const card = e.target.closest('.todo-card')
     if (e.target.className.includes('todo-delete-button')) {
       deleteTodo(e.target.id)
       renderTodos(getActiveProject(), todoSection)
-    } else if (listOfTodosId.includes(e.target.id)) {
-      const todo = todos.find((todo) => todo.id === e.target.id)
+    } else if (card && listOfTodosId.includes(card.id)) {
+      const todo = todos.find((todo) => todo.id === card.id)
       openEditModal(todo, todoSection)
     } else if (e.target.className.includes('form-checkbox')) {
       const projects = getStoredProjectsArray()

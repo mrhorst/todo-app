@@ -1,4 +1,4 @@
-import { error } from './DOMhelpers.js'
+import { errorText } from './DOMhelpers.js'
 import {
   getStoredProjectsArray,
   renderProjects,
@@ -16,7 +16,7 @@ const projectsInputListener = (projectSection) => {
   projectSection.projectInput.addEventListener('keydown', (e) => {
     if (e.code === 'Enter' || e.code === 'NumpadEnter') {
       if (e.target.value.trim() === '') {
-        error(projectSection.inputContainer, 'Project title')
+        errorText(projectSection.inputContainer, 'Project title')
         setTimeout(() => {
           document.querySelector('.error')
             ? document.querySelector('.error').remove()
@@ -39,6 +39,7 @@ const projectsListener = (projectSection, todoSection) => {
   projectSection.listedProjectsContainer.addEventListener('click', (e) => {
     const projects = getStoredProjectsArray()
     const listOfIDs = projects.map((project) => project.id)
+    const card = e.target.closest('.project-card')
 
     if (e.target.className.includes('project-delete-button')) {
       // if clicked on delete button...
@@ -63,9 +64,9 @@ const projectsListener = (projectSection, todoSection) => {
         return
       }
     }
-    if (listOfIDs.includes(e.target.id)) {
+    if (card && listOfIDs.includes(card.id)) {
       // if clicked on a project's card, set it as the active project..
-      setActiveProject(e.target.id)
+      setActiveProject(card.id)
       renderProjects(projects, projectSection)
       renderTodos(getActiveProject(), todoSection)
     }

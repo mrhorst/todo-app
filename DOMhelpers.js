@@ -1,6 +1,6 @@
 import { getActiveProjectId } from './state.js'
 
-const createElement = (type, options = {}) => {
+export const createElement = (type, options = {}) => {
   const el = document.createElement(type)
   const { id, classList, parent, textContent, placeholder, inputType } = options
   if (id) el.id = id
@@ -175,7 +175,7 @@ const buildInput = (parent, type) => {
 export const createProjectCard = (project, listedProjectsContainer) => {
   const activeClassList = 'bg-white ring-2 ring-blue-400'
   const cardClassList =
-    'flex justify-between items-center border border-sky-200 rounded-md px-4 py-2 text-left hover:bg-gray-50 transition-shadow duration-200'
+    'project-card flex justify-between items-center border border-sky-200 rounded-md px-4 py-2 text-left hover:bg-gray-50 transition-shadow duration-200'
   const card = createElement('div', {
     id: `${project.id}`,
     parent: listedProjectsContainer,
@@ -203,7 +203,7 @@ export const createTodoCard = (todo, todoSection) => {
   const card = createElement('div', {
     id: `${todo.id}`,
     parent: activeProjectTodosContainer,
-    classList: `
+    classList: `todo-card
   flex justify-between items-start 
   w-full border border-sky-200 
   rounded-md p-4 
@@ -342,13 +342,12 @@ export const buildModal = () => {
   })
 }
 
-export const error = (parent, target) => {
+export const errorText = (parent, target) => {
   const existingError = parent.querySelector('.error')
   existingError ? existingError.remove() : null
-  const errorText = createElement('p', {
-    classList: 'error text-red-800 transition-opacity duration-300',
+  createElement('p', {
+    classList: 'error text-red-800 text-sm font-medium',
     parent,
     textContent: `${target} cannot be empty.`,
   })
-  return errorText
 }

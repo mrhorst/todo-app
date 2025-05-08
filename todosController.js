@@ -1,4 +1,4 @@
-import { createTodoCard } from './DOMhelpers.js'
+import { createElement, createTodoCard } from './DOMhelpers.js'
 import {
   getStoredProjectsArray,
   getActiveProject,
@@ -34,9 +34,15 @@ const renderTodos = (activeProject, todoSection) => {
   todoSection.activeProjectTodosContainer.innerHTML = ''
   const listOfTodos = activeProject.todos
 
-  if (listOfTodos) {
+  if (listOfTodos.length > 0) {
     listOfTodos.forEach((todo) => {
       createTodoCard(todo, todoSection)
+    })
+  } else {
+    createElement('h1', {
+      parent: todoSection.activeProjectTodosContainer,
+      textContent: 'NO TODOS YET!',
+      classList: 'text-lg font-bold',
     })
   }
 }
