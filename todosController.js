@@ -58,4 +58,19 @@ const deleteTodo = (todoId) => {
   localStorage.setItem('projects', JSON.stringify(updatedProjects))
 }
 
-export { createTodo, renderTodos, deleteTodo }
+const updateTodo = (todo, newData) => {
+  const projects = getStoredProjectsArray()
+  const activeProject = getActiveProject()
+
+  const updatedProjects = projects.map((p) => {
+    if (p.id == activeProject.id) {
+      const updatedTodo = p.todos.find((t) => t.id == todo.id)
+      updatedTodo.title = newData.title
+      updatedTodo.description = newData.description
+      updatedTodo.dueDate = newData.dueDate
+    }
+    return p
+  })
+  localStorage.setItem('projects', JSON.stringify(updatedProjects))
+}
+export { createTodo, renderTodos, deleteTodo, updateTodo }

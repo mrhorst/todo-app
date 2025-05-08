@@ -23,6 +23,7 @@ export const buildLayout = () => {
   const projectSection = buildProjectSection(appContainer)
 
   const todoSection = buildTodoSection(appContainer)
+  buildModal()
   return {
     todoSection,
     projectSection,
@@ -221,5 +222,83 @@ export const createTodoCard = (todo, todoSection) => {
     id: `${todo.id}`,
     textContent: '🗑️',
     classList: 'todo-delete-button',
+  })
+}
+
+export const buildModal = () => {
+  const modalOverlay = createElement('div', {
+    id: 'todo-edit-modal',
+    classList:
+      'inset-0 fixed overlay bg-black/50 flex justify-center items-center z-50 hidden',
+    parent: document.body,
+  })
+
+  const modalContainer = createElement('div', {
+    classList: 'grid gap-2 bg-white p-6 rounded-lg shadow-md w-full max-w-md',
+    parent: modalOverlay,
+  })
+
+  const modalTitle = createElement('h2', {
+    classList: 'text-lg font-bold mb-4',
+    parent: modalContainer,
+    textContent: 'Edit Todo',
+  })
+  const titleDiv = createElement('div', {
+    parent: modalContainer,
+    classList: 'grid grid-cols-3',
+  })
+  const titleLabel = createElement('label', {
+    parent: titleDiv,
+    textContent: 'Title',
+  })
+  const titleInput = createElement('input', {
+    parent: titleDiv,
+    id: 'edit-todo-title',
+    classList:
+      'rounded-md border border-sky-200 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 col-span-2',
+  })
+  const descriptionDiv = createElement('div', {
+    parent: modalContainer,
+    classList: 'grid grid-cols-3',
+  })
+  const descLabel = createElement('label', {
+    parent: descriptionDiv,
+    textContent: 'Description',
+  })
+  const descriptionTextArea = createElement('textarea', {
+    parent: descriptionDiv,
+    id: 'edit-todo-description',
+    classList:
+      'rounded-md border border-sky-200 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 col-span-2',
+  })
+  const dueDateDiv = createElement('div', {
+    parent: modalContainer,
+    classList: 'grid grid-cols-3',
+  })
+  const dueDateLabel = createElement('label', {
+    parent: dueDateDiv,
+    textContent: 'Due Date',
+  })
+  const dueDateInput = createElement('input', {
+    parent: dueDateDiv,
+    id: 'edit-todo-due-date',
+    inputType: 'date',
+    classList:
+      'rounded-md border border-sky-200 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 col-span-2',
+  })
+
+  const buttonsDiv = createElement('div', {
+    parent: modalContainer,
+    classList: 'flex justify-end gap-3',
+  })
+  const saveButton = createElement('button', {
+    parent: buttonsDiv,
+    textContent: 'Save',
+    id: 'save-todo-button',
+  })
+  const cancelButton = createElement('button', {
+    parent: buttonsDiv,
+    textContent: 'Cancel',
+    id: 'cancel-todo-button',
   })
 }
