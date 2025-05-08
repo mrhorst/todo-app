@@ -1,23 +1,20 @@
 import { createTodoCard } from './DOMhelpers.js'
-import { getStoredProjectsArray } from './projectsController.js'
-import { getActiveProjectId } from './state.js'
+import {
+  getStoredProjectsArray,
+  getActiveProject,
+} from './projectsController.js'
 import Todo from './Todo.js'
 
 const localStorage = window.localStorage
 
 const createTodo = (title) => {
+  if (title.trim() === '') {
+    console.error('title cannot be empty!')
+    return
+  }
   const todo = new Todo(title)
   saveTodo(todo)
   return todo
-}
-
-export const getActiveProject = () => {
-  const activeProjectId = getActiveProjectId()
-  const project = JSON.parse(localStorage.getItem('projects')).find(
-    (project) => project.id == activeProjectId
-  )
-
-  return project
 }
 
 const saveTodo = (todo) => {
@@ -68,9 +65,20 @@ const updateTodo = (todo, newData) => {
       updatedTodo.title = newData.title
       updatedTodo.description = newData.description
       updatedTodo.dueDate = newData.dueDate
+      updatedTodo.completed = newData.completed
+      updatedTodo.priority = newData.priority
     }
     return p
   })
   localStorage.setItem('projects', JSON.stringify(updatedProjects))
 }
-export { createTodo, renderTodos, deleteTodo, updateTodo }
+
+const getAllTodos = () => {
+  const allTodos = []
+  JSON.parse(localStorage.getItem('projects')).forEach((project) => {
+    project.todos.forEach((todo) => allTodos.push(todo))
+  })
+  return allTodos
+}
+
+export { createTodo, renderTodos, deleteTodo, updateTodo, getAllTodos }

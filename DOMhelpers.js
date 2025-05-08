@@ -216,21 +216,39 @@ export const createTodoCard = (todo, todoSection) => {
     parent: card,
     classList: 'flex flex-col gap-1',
   })
+
+  const completeTodo = createElement('input', {
+    parent: todoContainer,
+    inputType: 'checkbox',
+    classList:
+      'form-checkbox h-5 w-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500',
+    id: `checkbox-${todo.id}`,
+  })
+
+  completeTodo.checked = todo.completed ? true : false
+  const completeTodoStyle = ' line-through text-gray-400'
+
   const todoTitle = createElement('p', {
     parent: todoContainer,
-    classList: 'text-lg',
+    classList: completeTodo.checked
+      ? `text-lg font-bold ${completeTodoStyle}`
+      : 'text-lg font-bold',
     textContent: todo.title,
   })
 
   const todoDescription = createElement('p', {
     parent: todoContainer,
-    classList: 'text-sm',
+    classList: completeTodo.checked
+      ? completeTodoStyle + ' text-sm'
+      : 'text-sm',
     textContent: todo.description,
   })
 
   const dueDate = createElement('p', {
     parent: todoContainer,
-    classList: 'text-sm',
+    classList: completeTodo.checked
+      ? completeTodoStyle + ' text-sm'
+      : 'text-sm',
     textContent: todo.dueDate,
   })
 
@@ -322,4 +340,15 @@ export const buildModal = () => {
     textContent: 'Cancel',
     id: 'cancel-todo-button',
   })
+}
+
+export const error = (parent, target) => {
+  const existingError = parent.querySelector('.error')
+  existingError ? existingError.remove() : null
+  const errorText = createElement('p', {
+    classList: 'error text-red-800 transition-opacity duration-300',
+    parent,
+    textContent: `${target} cannot be empty.`,
+  })
+  return errorText
 }
