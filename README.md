@@ -33,6 +33,10 @@ A clean and minimal Todo app for managing projects and tasks. Built with modular
 
 No build step needed — just pure HTML, JS, and Tailwind via CDN.
 
+## 🔗 Live Demo
+
+[Check out the live app here](https://your-username.github.io/todo-app/)
+
 ## 🛠️ Technologies Used
 
 - JavaScript (ES6+)
