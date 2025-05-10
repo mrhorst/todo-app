@@ -35,7 +35,7 @@ No build step needed — just pure HTML, JS, and Tailwind via CDN.
 
 ## 🔗 Live Demo
 
-[Check out the live app here](https://your-username.github.io/todo-app/)
+[Check out the live app here](https://mrhorst.github.io/todo-app/)
 
 ## 🛠️ Technologies Used
 
